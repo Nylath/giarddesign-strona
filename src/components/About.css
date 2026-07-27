@@ -1,0 +1,268 @@
+/* Sekcja o firmie */
+
+.about {
+  --about-green: #1b5b31;
+  --about-white: #ffffff;
+
+  overflow: hidden;
+
+  color: var(--about-white);
+  background-color: var(--about-green);
+
+  scroll-margin-top: 88px;
+}
+
+.about__layout {
+  display: grid;
+  grid-template-columns: clamp(460px, 48vw, 690px) minmax(0, 1fr);
+
+  height: calc(100vh - 88px);
+  min-height: 520px;
+  max-height: 680px;
+}
+
+
+/* Zdjęcie */
+
+.about__media {
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+
+  background-color: var(--about-green);
+}
+
+.about__image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+
+/* Treść */
+
+.about__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 64px 48px;
+}
+
+.about__content-inner {
+  width: 100%;
+  max-width: 520px;
+}
+
+.about__eyebrow {
+  margin: 0 0 18px;
+  opacity: 0.8;
+}
+
+.about__title {
+  margin: 0;
+}
+
+.about__description {
+  max-width: 500px;
+  margin: 36px 0 0;
+
+  opacity: 0.92;
+}
+
+
+/* Przycisk */
+
+.about__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 48px;
+  margin-top: 48px;
+  padding: 12px 24px;
+
+  color: var(--about-white);
+  text-decoration: none;
+
+  background-color: transparent;
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 999px;
+
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.about__button:hover {
+  color: var(--about-green);
+  background-color: var(--about-white);
+  border-color: var(--about-white);
+
+  transform: translateY(-2px);
+}
+
+.about__button:focus-visible {
+  outline: 2px solid var(--about-white);
+  outline-offset: 4px;
+}
+
+.about__button-arrow {
+  width: 20px;
+  height: 14px;
+  flex-shrink: 0;
+
+  transition: transform 180ms ease;
+}
+
+.about__button:hover .about__button-arrow {
+  transform: translateX(4px);
+}
+
+
+/* Animacja zdjęcia */
+
+@media (min-width: 901px) {
+  .about__media {
+    opacity: 0;
+    transform: translateX(-80px);
+
+    transition:
+      opacity 900ms ease,
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about--visible .about__media {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* Mniejszy desktop */
+
+@media (max-width: 1200px) {
+  .about__layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about__content {
+    padding: 56px 40px;
+  }
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .about {
+    padding-bottom: 32px;
+  }
+
+  .about__layout {
+    display: flex;
+    flex-direction: column-reverse;
+
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .about__content {
+    padding: 56px 24px 40px;
+
+    text-align: center;
+  }
+
+  .about__content-inner {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  .about__description {
+    max-width: 570px;
+    margin-inline: auto;
+  }
+
+  .about__media {
+    width: calc(100% - 32px);
+    height: auto;
+    aspect-ratio: 1;
+    margin-inline: auto;
+
+    border-radius: 28px;
+  }
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .about__content {
+    padding: 36px 20px 40px;
+  }
+
+  .about__description {
+    margin-top: 30px;
+  }
+
+  .about__button {
+    min-height: 54px;
+    margin-top: 36px;
+    padding: 14px 24px;
+  }
+}
+
+
+/* Małe ekrany */
+
+@media (max-width: 380px) {
+  .about__content {
+    padding-inline: 16px;
+  }
+
+  .about__media {
+    width: calc(100% - 24px);
+  }
+}
+
+
+/* Duży desktop */
+
+@media (min-width: 1025px) {
+  .about__content-inner {
+    max-width: 600px;
+  }
+
+  .about__description {
+    max-width: 540px;
+  }
+
+  .about__button {
+    min-height: 52px;
+    padding: 14px 26px;
+  }
+}
+
+
+/* Ograniczenie animacji */
+
+@media (prefers-reduced-motion: reduce) {
+  .about__media {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .about__button,
+  .about__button-arrow {
+    transition: none;
+  }
+}
