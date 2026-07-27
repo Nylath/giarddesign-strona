@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Masonry from "react-masonry-css";
 import "./Realizations.css";
 
@@ -14,6 +14,8 @@ import realization9 from "../assets/realizations/realization-9.jpg";
 import realization10 from "../assets/realizations/realization-10.png";
 import realization11 from "../assets/realizations/realization-11.png";
 import realization12 from "../assets/realizations/realization-12.png";
+
+const SWIPE_THRESHOLD = 50;
 
 const projects = [
   {
@@ -75,42 +77,31 @@ const breakpointColumns = {
 function Realizations() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const touchStartRef = useRef(null);
 
   const isLightboxOpen = selectedIndex !== null;
 
-  const changeImage = (direction) => {
-    setSelectedIndex((currentIndex) => {
-      return (
-        currentIndex +
-        direction +
-        projects.length
-      ) % projects.length;
-    });
-  };
+  const changeImage = useCallback((direction) => {
+    setSelectedIndex(
+      (index) => (index + direction + projects.length) % projects.length,
+    );
+  }, []);
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setSelectedIndex(null);
-  };
+  }, []);
 
   useEffect(() => {
     if (!isLightboxOpen) {
-      return undefined;
+      return;
     }
 
     const previousOverflow = document.body.style.overflow;
 
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        closeLightbox();
-      }
-
-      if (event.key === "ArrowRight") {
-        changeImage(1);
-      }
-
-      if (event.key === "ArrowLeft") {
-        changeImage(-1);
-      }
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowRight") changeImage(1);
+      if (event.key === "ArrowLeft") changeImage(-1);
     };
 
     document.body.style.overflow = "hidden";
@@ -120,7 +111,51 @@ function Realizations() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isLightboxOpen]);
+  }, [isLightboxOpen, changeImage, closeLightbox]);
+
+  const handleTouchStart = (event) => {
+    const touch = event.touches[0];
+
+    touchStartRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  };
+
+  const handleTouchEnd = (event) => {
+    const start = touchStartRef.current;
+
+    if (!start) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const distanceX = touch.clientX - start.x;
+    const distanceY = touch.clientY - start.y;
+
+    touchStartRef.current = null;
+
+    if (
+      Math.abs(distanceX) < SWIPE_THRESHOLD ||
+      Math.abs(distanceX) <= Math.abs(distanceY)
+    ) {
+      return;
+    }
+
+    changeImage(distanceX < 0 ? 1 : -1);
+  };
+
+  const stopPropagation = (event) => {
+    event.stopPropagation();
+  };
+
+  const previousIndex =
+    selectedIndex === null
+      ? 0
+      : (selectedIndex - 1 + projects.length) % projects.length;
+
+  const nextIndex =
+    selectedIndex === null ? 0 : (selectedIndex + 1) % projects.length;
 
   return (
     <>
@@ -131,9 +166,7 @@ function Realizations() {
       >
         <div className="realizations__container">
           <header className="realizations__header">
-            <p className="realizations__eyebrow">
-              Realizacje
-            </p>
+            <p className="realizations__eyebrow">Realizacje</p>
 
             <h2
               id="realizations-title"
@@ -214,6 +247,11 @@ function Realizations() {
           aria-modal="true"
           aria-label="Galeria realizacji"
           onClick={closeLightbox}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={() => {
+            touchStartRef.current = null;
+          }}
         >
           <div
             className="realizations__lightbox-counter"
@@ -237,7 +275,7 @@ function Realizations() {
             className="realizations__lightbox-nav realizations__lightbox-nav--prev"
             aria-label="Poprzednie zdjęcie"
             onClick={(event) => {
-              event.stopPropagation();
+              stopPropagation(event);
               changeImage(-1);
             }}
           >
@@ -254,14 +292,42 @@ function Realizations() {
           </button>
 
           <div
-            className="realizations__lightbox-content"
-            onClick={(event) => event.stopPropagation()}
+            className="realizations__lightbox-gallery"
+            onClick={stopPropagation}
           >
-            <img
-              src={projects[selectedIndex].src}
-              alt={projects[selectedIndex].alt}
-              className="realizations__lightbox-image"
-            />
+            <button
+              type="button"
+              className="realizations__lightbox-preview realizations__lightbox-preview--prev"
+              aria-label="Pokaż poprzednie zdjęcie"
+              onClick={() => changeImage(-1)}
+            >
+              <img
+                src={projects[previousIndex].src}
+                alt=""
+                draggable="false"
+              />
+            </button>
+
+            <div className="realizations__lightbox-current">
+              <img
+                src={projects[selectedIndex].src}
+                alt={projects[selectedIndex].alt}
+                draggable="false"
+              />
+            </div>
+
+            <button
+              type="button"
+              className="realizations__lightbox-preview realizations__lightbox-preview--next"
+              aria-label="Pokaż następne zdjęcie"
+              onClick={() => changeImage(1)}
+            >
+              <img
+                src={projects[nextIndex].src}
+                alt=""
+                draggable="false"
+              />
+            </button>
           </div>
 
           <button
@@ -269,7 +335,7 @@ function Realizations() {
             className="realizations__lightbox-nav realizations__lightbox-nav--next"
             aria-label="Następne zdjęcie"
             onClick={(event) => {
-              event.stopPropagation();
+              stopPropagation(event);
               changeImage(1);
             }}
           >

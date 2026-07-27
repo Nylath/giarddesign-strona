@@ -284,16 +284,16 @@
 }
 
 
-/* Urządzenia dotykowe */
+/* Automatyczna animacja na mobile */
 
-@media (max-width: 600px) and (hover: none) {
-  .contact__photo {
-    opacity: 0.5;
-    transform: translateY(38%) rotate(var(--photo-rotation));
+@media (max-width: 600px) {
+  .contact__panel--visible .contact__photo {
+    opacity: 0.72;
+    transform: translateY(0) rotate(var(--photo-rotation));
   }
 
-  .contact__photo--center {
-    transform: translateX(-50%) translateY(34%);
+  .contact__panel--visible .contact__photo--center {
+    transform: translateX(-50%) translateY(-4px);
   }
 }
 

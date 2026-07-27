@@ -12,7 +12,6 @@
 /* Sekcja */
 
 .realizations {
-  width: 100%;
   padding: 120px 24px 140px;
 
   background-color: var(--realizations-background);
@@ -21,7 +20,6 @@
 }
 
 .realizations__container {
-  width: 100%;
   max-width: 1260px;
   margin-inline: auto;
 }
@@ -98,7 +96,6 @@
 .realizations__image {
   display: block;
   width: 100%;
-  height: auto;
 
   transition: transform 300ms ease;
 }
@@ -108,7 +105,7 @@
 }
 
 
-/* Gradient i przycisk */
+/* Gradient */
 
 .realizations__fade {
   position: absolute;
@@ -124,20 +121,16 @@
 
   background: linear-gradient(
     to bottom,
-    rgb(220 193 171 / 0%) 0%,
+    transparent,
     rgb(220 193 171 / 25%) 22%,
     rgb(220 193 171 / 72%) 58%,
-    var(--realizations-background) 88%,
-    var(--realizations-background) 100%
+    var(--realizations-background) 88%
   );
 
   pointer-events: none;
 }
 
 .realizations__more-button {
-  position: relative;
-  z-index: 3;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -154,7 +147,6 @@
   cursor: pointer;
 
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
 
   pointer-events: auto;
 
@@ -197,69 +189,123 @@
   justify-content: center;
 
   padding: 32px;
+  overflow: hidden;
 
-  background-color: rgb(0 0 0 / 84%);
+  background-color: rgb(0 0 0 / 88%);
 
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
+
+  touch-action: pan-y;
 }
 
-.realizations__lightbox-content {
+.realizations__lightbox-gallery {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: min(90vw, 1100px);
-  max-height: 84vh;
+  width: min(88vw, 1180px);
+  height: min(78vh, 760px);
 }
 
-.realizations__lightbox-image {
+.realizations__lightbox-current {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: min(68vw, 900px);
+  height: 100%;
+}
+
+.realizations__lightbox-current img {
   display: block;
 
   max-width: 100%;
-  max-height: 84vh;
+  max-height: 100%;
 
   object-fit: contain;
+
+  box-shadow: 0 20px 60px rgb(0 0 0 / 45%);
+}
+
+.realizations__lightbox-preview {
+  position: absolute;
+  z-index: 1;
+
+  width: min(34vw, 460px);
+  height: 60%;
+  padding: 0;
+  overflow: hidden;
+
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  opacity: 0.3;
+  filter: brightness(0.5);
+  transform: translateY(28px) scale(0.78);
+
+  transition:
+    opacity 180ms ease,
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+.realizations__lightbox-preview--prev {
+  left: -2%;
+}
+
+.realizations__lightbox-preview--next {
+  right: -2%;
+}
+
+.realizations__lightbox-preview img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.realizations__lightbox-preview:hover {
+  opacity: 0.46;
+  filter: brightness(0.65);
+  transform: translateY(28px) scale(0.82);
 }
 
 .realizations__lightbox-counter {
   position: absolute;
   top: 24px;
   left: 50%;
-  z-index: 3;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 4;
 
   min-width: 64px;
-  height: 36px;
-  padding-inline: 14px;
+  padding: 10px 14px;
 
   color: var(--realizations-white);
   font-size: 15px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   line-height: 1;
-  white-space: nowrap;
+  text-align: center;
 
   background-color: rgb(0 0 0 / 55%);
   border: 1px solid rgb(255 255 255 / 22%);
   border-radius: 999px;
 
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  pointer-events: none;
   transform: translateX(-50%);
 }
 
 
-/* Zamknięcie i nawigacja */
+/* Nawigacja */
 
 .realizations__lightbox-close,
 .realizations__lightbox-nav {
   position: absolute;
+  z-index: 4;
 
   padding: 0;
 
@@ -284,7 +330,6 @@
 .realizations__lightbox-close {
   top: 24px;
   right: 24px;
-  z-index: 4;
 
   width: 44px;
   height: 44px;
@@ -295,13 +340,10 @@
   top: 50%;
   left: 50%;
 
-  display: block;
-
   width: 20px;
   height: 2px;
 
   background-color: currentColor;
-  border-radius: 2px;
 }
 
 .realizations__lightbox-close span:first-child {
@@ -338,7 +380,8 @@
 }
 
 .realizations__lightbox-close:focus-visible,
-.realizations__lightbox-nav:focus-visible {
+.realizations__lightbox-nav:focus-visible,
+.realizations__lightbox-preview:focus-visible {
   outline: 2px solid var(--realizations-white);
   outline-offset: 4px;
 }
@@ -375,8 +418,16 @@
     height: 260px;
   }
 
-  .realizations__lightbox {
-    padding: 24px;
+  .realizations__lightbox-gallery {
+    width: 92vw;
+  }
+
+  .realizations__lightbox-current {
+    width: 72vw;
+  }
+
+  .realizations__lightbox-preview {
+    width: 44vw;
   }
 
   .realizations__lightbox-nav--prev {
@@ -427,21 +478,45 @@
   }
 
   .realizations__lightbox {
-    padding: 16px;
+    padding: 12px;
+  }
+
+  .realizations__lightbox-gallery {
+    width: 100vw;
+    height: 72vh;
+  }
+
+  .realizations__lightbox-current {
+    width: 76vw;
+  }
+
+  .realizations__lightbox-preview {
+    width: 44vw;
+    height: 52%;
+
+    opacity: 0.26;
+    transform: translateY(18px) scale(0.7);
+  }
+
+  .realizations__lightbox-preview:hover {
+    transform: translateY(18px) scale(0.74);
+  }
+
+  .realizations__lightbox-preview--prev {
+    left: -34vw;
+  }
+
+  .realizations__lightbox-preview--next {
+    right: -34vw;
   }
 
   .realizations__lightbox-counter {
     top: 16px;
 
     min-width: 60px;
-    height: 32px;
-    padding-inline: 12px;
+    padding: 9px 12px;
 
     font-size: 14px;
-  }
-
-  .realizations__lightbox-content {
-    width: 100%;
   }
 
   .realizations__lightbox-close {
@@ -450,16 +525,16 @@
   }
 
   .realizations__lightbox-nav {
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
   }
 
   .realizations__lightbox-nav--prev {
-    left: 8px;
+    left: 6px;
   }
 
   .realizations__lightbox-nav--next {
-    right: 8px;
+    right: 6px;
   }
 
   .realizations__lightbox-nav svg {
@@ -477,7 +552,8 @@
   .realizations__image,
   .realizations__more-button,
   .realizations__lightbox-close,
-  .realizations__lightbox-nav {
+  .realizations__lightbox-nav,
+  .realizations__lightbox-preview {
     transition: none;
   }
 }

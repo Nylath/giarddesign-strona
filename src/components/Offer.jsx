@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import "./Offer.css";
 
 import pencilBody from "../assets/icons/pencil-body.png";
@@ -118,6 +119,35 @@ function CardArrow() {
 }
 
 function Offer() {
+  const cardsRef = useRef([]);
+  const [visibleCards, setVisibleCards] = useState({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setVisibleCards((current) => {
+          const next = { ...current };
+
+          entries.forEach((entry) => {
+            next[entry.target.dataset.card] = entry.isIntersecting;
+          });
+
+          return next;
+        });
+      },
+      {
+        threshold: 0.45,
+        rootMargin: "0px 0px -8% 0px",
+      },
+    );
+
+    cardsRef.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="oferta"
@@ -141,12 +171,18 @@ function Offer() {
         </header>
 
         <div className="offer__cards">
-          {offers.map((offer) => (
+          {offers.map((offer, index) => (
             <button
               key={offer.id}
               id={offer.id}
+              ref={(element) => {
+                cardsRef.current[index] = element;
+              }}
+              data-card={offer.id}
               type="button"
-              className={`offer-card offer-card--${offer.modifier}`}
+              className={`offer-card offer-card--${offer.modifier} ${
+                visibleCards[offer.id] ? "offer-card--visible" : ""
+              }`}
               aria-label={offer.ariaLabel}
             >
               <div className="offer-card__main">
