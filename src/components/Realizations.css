@@ -1,0 +1,483 @@
+/* Zmienne */
+
+.realizations,
+.realizations__lightbox {
+  --realizations-green: #1b5b31;
+  --realizations-text: #111111;
+  --realizations-background: #dcc1ab;
+  --realizations-white: #ffffff;
+}
+
+
+/* Sekcja */
+
+.realizations {
+  width: 100%;
+  padding: 120px 24px 140px;
+
+  background-color: var(--realizations-background);
+
+  scroll-margin-top: 88px;
+}
+
+.realizations__container {
+  width: 100%;
+  max-width: 1260px;
+  margin-inline: auto;
+}
+
+.realizations__header {
+  max-width: 760px;
+  margin-bottom: 72px;
+}
+
+.realizations__eyebrow {
+  margin: 0 0 16px;
+  color: var(--realizations-green);
+}
+
+.realizations__title {
+  margin: 0;
+}
+
+
+/* Galeria */
+
+.realizations__gallery {
+  position: relative;
+  overflow: hidden;
+
+  transition: max-height 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.realizations__gallery--collapsed {
+  max-height: 940px;
+}
+
+.realizations__gallery--expanded {
+  max-height: 5000px;
+}
+
+
+/* Masonry */
+
+.realizations__grid {
+  display: flex;
+  width: auto;
+  margin-left: -20px;
+}
+
+.realizations__grid-column {
+  padding-left: 20px;
+}
+
+.realizations__item {
+  display: block;
+
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0;
+  overflow: hidden;
+
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  transition: transform 180ms ease;
+}
+
+.realizations__item:hover {
+  transform: translateY(-4px);
+}
+
+.realizations__item:focus-visible {
+  outline: 2px solid var(--realizations-green);
+  outline-offset: 4px;
+}
+
+.realizations__image {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  transition: transform 300ms ease;
+}
+
+.realizations__item:hover .realizations__image {
+  transform: scale(1.03);
+}
+
+
+/* Gradient i przycisk */
+
+.realizations__fade {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  height: 300px;
+  padding-bottom: 22px;
+
+  background: linear-gradient(
+    to bottom,
+    rgb(220 193 171 / 0%) 0%,
+    rgb(220 193 171 / 25%) 22%,
+    rgb(220 193 171 / 72%) 58%,
+    var(--realizations-background) 88%,
+    var(--realizations-background) 100%
+  );
+
+  pointer-events: none;
+}
+
+.realizations__more-button {
+  position: relative;
+  z-index: 3;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 44px;
+  padding: 10px 20px;
+
+  color: var(--realizations-text);
+
+  background-color: rgb(220 193 171 / 85%);
+  border: 1px solid var(--realizations-text);
+  border-radius: 999px;
+  cursor: pointer;
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  pointer-events: auto;
+
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.realizations__more-button:hover {
+  color: var(--realizations-white);
+  background-color: var(--realizations-green);
+  border-color: var(--realizations-green);
+
+  transform: translateY(-2px);
+}
+
+.realizations__more-button:focus-visible {
+  outline: 2px solid var(--realizations-green);
+  outline-offset: 4px;
+}
+
+.realizations__more-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+
+/* Lightbox */
+
+.realizations__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px;
+
+  background-color: rgb(0 0 0 / 84%);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.realizations__lightbox-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: min(90vw, 1100px);
+  max-height: 84vh;
+}
+
+.realizations__lightbox-image {
+  display: block;
+
+  max-width: 100%;
+  max-height: 84vh;
+
+  object-fit: contain;
+}
+
+.realizations__lightbox-counter {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  z-index: 3;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 64px;
+  height: 36px;
+  padding-inline: 14px;
+
+  color: var(--realizations-white);
+  font-size: 15px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+
+  background-color: rgb(0 0 0 / 55%);
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 999px;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+
+/* Zamknięcie i nawigacja */
+
+.realizations__lightbox-close,
+.realizations__lightbox-nav {
+  position: absolute;
+
+  padding: 0;
+
+  color: var(--realizations-white);
+
+  background-color: rgb(255 255 255 / 10%);
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 50%;
+  cursor: pointer;
+
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.realizations__lightbox-close:hover,
+.realizations__lightbox-nav:hover {
+  background-color: rgb(255 255 255 / 22%);
+  border-color: rgb(255 255 255 / 26%);
+}
+
+.realizations__lightbox-close {
+  top: 24px;
+  right: 24px;
+  z-index: 4;
+
+  width: 44px;
+  height: 44px;
+}
+
+.realizations__lightbox-close span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  display: block;
+
+  width: 20px;
+  height: 2px;
+
+  background-color: currentColor;
+  border-radius: 2px;
+}
+
+.realizations__lightbox-close span:first-child {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.realizations__lightbox-close span:last-child {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.realizations__lightbox-nav {
+  top: 50%;
+
+  display: grid;
+  place-items: center;
+
+  width: 56px;
+  height: 56px;
+
+  transform: translateY(-50%);
+}
+
+.realizations__lightbox-nav--prev {
+  left: 24px;
+}
+
+.realizations__lightbox-nav--next {
+  right: 24px;
+}
+
+.realizations__lightbox-nav svg {
+  width: 28px;
+  height: 20px;
+}
+
+.realizations__lightbox-close:focus-visible,
+.realizations__lightbox-nav:focus-visible {
+  outline: 2px solid var(--realizations-white);
+  outline-offset: 4px;
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .realizations {
+    padding: 96px 24px 110px;
+  }
+
+  .realizations__header {
+    margin-bottom: 56px;
+  }
+
+  .realizations__gallery--collapsed {
+    max-height: 1120px;
+  }
+
+  .realizations__grid {
+    margin-left: -16px;
+  }
+
+  .realizations__grid-column {
+    padding-left: 16px;
+  }
+
+  .realizations__item {
+    margin-bottom: 16px;
+  }
+
+  .realizations__fade {
+    height: 260px;
+  }
+
+  .realizations__lightbox {
+    padding: 24px;
+  }
+
+  .realizations__lightbox-nav--prev {
+    left: 12px;
+  }
+
+  .realizations__lightbox-nav--next {
+    right: 12px;
+  }
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .realizations {
+    padding: 72px 16px 80px;
+  }
+
+  .realizations__header {
+    margin-bottom: 40px;
+  }
+
+  .realizations__gallery--collapsed {
+    max-height: 1450px;
+  }
+
+  .realizations__grid {
+    margin-left: 0;
+  }
+
+  .realizations__grid-column {
+    padding-left: 0;
+  }
+
+  .realizations__item {
+    margin-bottom: 14px;
+  }
+
+  .realizations__fade {
+    height: 220px;
+    padding-bottom: 16px;
+  }
+
+  .realizations__more-button {
+    min-height: 48px;
+    padding: 12px 20px;
+  }
+
+  .realizations__lightbox {
+    padding: 16px;
+  }
+
+  .realizations__lightbox-counter {
+    top: 16px;
+
+    min-width: 60px;
+    height: 32px;
+    padding-inline: 12px;
+
+    font-size: 14px;
+  }
+
+  .realizations__lightbox-content {
+    width: 100%;
+  }
+
+  .realizations__lightbox-close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .realizations__lightbox-nav {
+    width: 46px;
+    height: 46px;
+  }
+
+  .realizations__lightbox-nav--prev {
+    left: 8px;
+  }
+
+  .realizations__lightbox-nav--next {
+    right: 8px;
+  }
+
+  .realizations__lightbox-nav svg {
+    width: 22px;
+    height: 16px;
+  }
+}
+
+
+/* Ograniczenie animacji */
+
+@media (prefers-reduced-motion: reduce) {
+  .realizations__gallery,
+  .realizations__item,
+  .realizations__image,
+  .realizations__more-button,
+  .realizations__lightbox-close,
+  .realizations__lightbox-nav {
+    transition: none;
+  }
+}
