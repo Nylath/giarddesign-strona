@@ -1,0 +1,313 @@
+/* Fonty */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;1,500&family=Montserrat:wght@400;500&display=swap");
+
+
+/* Zmienne */
+
+:root {
+  --font-body: "Inter", Arial, sans-serif;
+  --font-heading: "Montserrat", Arial, sans-serif;
+  --font-cta: "Inter", Arial, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  --text-primary: #111111;
+  --text-green: #1b5b31;
+}
+
+
+/* Typografia podstawowa */
+
+html {
+  font-family: var(--font-body);
+}
+
+body {
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+/* Nawigacja */
+
+.navbar__link {
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+
+/* Intro */
+
+.intro__title {
+  font-family: var(--font-heading);
+  font-size: 60px;
+  font-weight: var(--font-weight-medium);
+  line-height: 70px;
+  letter-spacing: 0;
+}
+
+.intro__description {
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+}
+
+.intro__button {
+  font-family: var(--font-cta);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+}
+
+
+/* Etykiety sekcji */
+
+.offer__eyebrow,
+.about__eyebrow,
+.realizations__eyebrow {
+  font-size: 12px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+
+/* Tytuły sekcji */
+
+.offer__title,
+.about__title,
+.realizations__title {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.offer__title em,
+.offer__title-accent,
+.about__title em,
+.realizations__title em {
+  font-family: var(--font-body);
+  font-size: inherit;
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+  line-height: inherit;
+  letter-spacing: 0;
+}
+
+
+/* Opisy sekcji */
+
+.offer__description,
+.about__description {
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+
+/* Przyciski sekcji */
+
+.offer-card__link,
+.about__button,
+.realizations__more-button {
+  font-family: var(--font-cta);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+}
+
+
+/* Karty oferty */
+
+.offer-card__title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+}
+
+.offer-card__description {
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+
+/* Contact */
+
+.contact__title {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 3.2vw, 40px);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.contact__title em {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.02em;
+}
+
+.contact__description {
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.contact__button {
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+
+/* Footer */
+
+.footer__contact-text,
+.footer__contact-button,
+.footer__link,
+.footer__copyright,
+.footer__author {
+  font-weight: var(--font-weight-regular);
+}
+
+.footer__contact-text {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.footer__contact-button {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.footer__link,
+.footer__copyright,
+.footer__author,
+.footer__author-label {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .intro__title {
+    font-size: clamp(44px, 7vw, 56px);
+    line-height: 1.12;
+  }
+
+  .offer__title,
+  .about__title,
+  .realizations__title {
+    font-size: clamp(40px, 7vw, 48px);
+  }
+
+  .contact__title {
+    font-size: clamp(30px, 4.5vw, 38px);
+  }
+
+  .contact__description {
+    font-size: 15px;
+  }
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .navbar__link {
+    font-size: 16px;
+  }
+
+  .intro__title {
+    font-size: clamp(40px, 10vw, 48px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+
+  .offer__title,
+  .about__title,
+  .realizations__title {
+    font-size: 40px;
+    line-height: 1.12;
+  }
+
+  .offer__description,
+  .about__description,
+  .contact__description {
+    font-size: 15px;
+  }
+
+  .offer-card__title {
+    font-size: 26px;
+  }
+
+  .offer-card__description {
+    font-size: 15px;
+  }
+
+  .offer-card__link,
+  .contact__button {
+    font-size: 15px;
+  }
+
+  .contact__title {
+    font-size: clamp(28px, 9vw, 36px);
+    line-height: 1.15;
+  }
+
+  .contact__description {
+    line-height: 1.45;
+  }
+
+  .footer__contact-text,
+  .footer__contact-button {
+    font-size: 15px;
+  }
+
+  .footer__link,
+  .footer__copyright,
+  .footer__author {
+    font-size: 13px;
+  }
+}
+
+
+/* Bardzo małe ekrany */
+
+@media (max-width: 380px) {
+  .intro__title {
+    font-size: 38px;
+  }
+
+  .offer__title,
+  .about__title,
+  .realizations__title {
+    font-size: 36px;
+  }
+}

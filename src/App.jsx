@@ -1,10 +1,25 @@
+import Navbar from "./components/Navbar";
+import Intro from "./components/Intro";
+import Offer from "./components/Offer"
+import About from "./components/About";
+import Realizations from "./components/Realizations";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+
 function App() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-stone-100">
-      <h1 className="text-4xl font-semibold text-green-900">
-        GiardDesign
-      </h1>
-    </main>
+    <>
+      <Navbar />
+
+      <main id="top">
+        <Intro />
+        <Offer />
+        <About />
+        <Realizations />
+        <Contact />
+        <Footer />
+      </main>
+    </>
   );
 }
 
