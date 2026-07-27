@@ -74,6 +74,26 @@ const breakpointColumns = {
   600: 1,
 };
 
+function LoadingImage({ className, ...props }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <span
+      className={`realizations__image-loader ${
+        isLoaded ? "realizations__image-loader--loaded" : ""
+      }`}
+    >
+      <span className="realizations__spinner" aria-hidden="true" />
+
+      <img
+        {...props}
+        className={className}
+        onLoad={() => setIsLoaded(true)}
+      />
+    </span>
+  );
+}
+
 function Realizations() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -197,7 +217,7 @@ function Realizations() {
                   aria-label={`Otwórz zdjęcie: ${project.alt}`}
                   onClick={() => setSelectedIndex(index)}
                 >
-                  <img
+                  <LoadingImage
                     src={project.src}
                     alt={project.alt}
                     className="realizations__image"
@@ -309,10 +329,13 @@ function Realizations() {
             </button>
 
             <div className="realizations__lightbox-current">
-              <img
+              <LoadingImage
+                key={projects[selectedIndex].src}
                 src={projects[selectedIndex].src}
                 alt={projects[selectedIndex].alt}
+                className="realizations__lightbox-image"
                 draggable="false"
+                decoding="async"
               />
             </div>
 
