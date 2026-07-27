@@ -4,7 +4,7 @@ Responsywna strona internetowa przygotowana w ramach zadania rekrutacyjnego na p
 
 ## Demo
 
-[Zobacz stronę online](giarddesign-aywy3ja9c-giarddesign.vercel.app
+[Zobacz stronę online](https://giarddesign-two.vercel.app
 )
 
 ## Technologie
