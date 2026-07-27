@@ -446,7 +446,7 @@
 
 /* Animacja kafelków na urządzeniach dotykowych */
 
-@media (max-width: 650px) and (hover: none) {
+@media (max-width: 650px) {
   .offer-card {
     opacity: 0;
     transform: translateY(32px);
